@@ -14,7 +14,6 @@ const useFecth = (url) => {
                setLoading(true)
                const res = await makeRequest.get(url);
                setData(res.data.data);
-               console.log(res.data.data)
             } catch (error) {
                 setError(true);
             }

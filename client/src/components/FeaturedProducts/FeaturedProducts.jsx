@@ -7,8 +7,6 @@ import { useFecth } from '../../hooks/useFetch';
 const FeaturedProducts = ({type}) => {
 
     const {data,loading,error} = useFecth(`/products?populate=*&[filters][type][$eq]=${type}`);
-    
-    console.log(data);
   return (
     <div className='featuredProducts'>
         <div className="top">

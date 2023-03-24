@@ -20,7 +20,7 @@ const Products = () => {
       : selectedSubCats.filter(item => item !== value));
   }
 
-  const {data,loading,error} = useFecth(`/sub-categories?[filters][categories][id][$eq]=${caId}`)
+  const {data,loading,error} = useFecth(`/sub-categories?[filters][categories][id][$eq]=${caId}`);
 
   return (
     <div className='products'>
@@ -48,7 +48,7 @@ const Products = () => {
             <label htmlFor="asc">Price (Lowest first)</label>
           </div>
           <div className="inputItem">
-            <input type="radio" id="asc" value="asc" name='price' onChange={e => setSort('desc')}/>
+            <input type="radio" id="asc" value="asc" name='price' onChance={e => setSort('desc')}/>
             <label htmlFor="asc">Price (Highest first)</label>
           </div>
         </div>
