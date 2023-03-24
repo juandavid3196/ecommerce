@@ -1,11 +1,10 @@
 import React from "react";
 import './Card.scss';
 import {Link} from 'react-router-dom';
+import {REACT_APP_UPLOAD_URL} from '../../data.js';
+
 
 const Card = ({item}) => {
-
-    const REACT_APP_UPLOAD_URL = "http://localhost:1337";
-
     return(
     <Link className="link" to={`/product/${item.id}`}>
         <div className="card">
