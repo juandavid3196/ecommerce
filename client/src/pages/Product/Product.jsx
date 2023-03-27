@@ -3,33 +3,33 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import BalanceIcon from "@mui/icons-material/Balance";
 import './Product.scss';
+import { useFecth } from '../../hooks/useFetch';
+import { useParams } from 'react-router-dom';
+import { REACT_APP_UPLOAD_URL } from '../../data';
 
 const Product = () => {
-
-  const [selectedImg, setSelectedImg] = useState(0)
+  const id = useParams().id;
+  const [selectedImg, setSelectedImg] = useState("img")
   const [quantity, setQuantity] = useState(1)
 
-  const images = [
-    'https://images.pexels.com/photos/1002406/pexels-photo-1002406.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-    'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'
-  ];
+  const {data,loading,error} = useFecth(`products/${id}?populate=*`);
   return (
     <div className='product'>
+      { loading ? 'Loading' : (
+      <>
       <div className="left">
         <div className="images">
-            <img src={images[0]} alt="" onClick={()=> setSelectedImg(0)}/>
-            <img src={images[1]} alt="" onClick={()=> setSelectedImg(1)}/>
+            <img src={REACT_APP_UPLOAD_URL+data?.attributes.img.data.attributes.url} alt="" onClick={()=> setSelectedImg("img")}/>
+            <img src={REACT_APP_UPLOAD_URL+data?.attributes.img2.data.attributes.url} alt="" onClick={()=> setSelectedImg("img2")}/>
         </div>
         <div className="mainImg">
-          <img src={images[selectedImg]} alt="" />
+          <img src={REACT_APP_UPLOAD_URL+data?.attributes[selectedImg].data.attributes.url} alt="" />
         </div>
       </div>
       <div className="right">
-        <h1>Title</h1>
-        <span className='price'>$199</span>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque ducimus soluta, voluptatum
-           neque eaque quaerat alias rerum mollitia necessitatibus! Molestias perferendis voluptates iure,
-           quos omnis corporis aliquam sequi necessitatibus! Eos?</p>
+        <h1>{data?.attributes.title}</h1>
+        <span className='price'>${data?.attributes.price}</span>
+        <p>{data?.attributes.desc}</p>
            <div className="quantity">
               <button onClick={()=> setQuantity(quantity !== 1 ? quantity - 1 : 1)}>-</button>
                 {quantity}
@@ -60,8 +60,9 @@ const Product = () => {
               <span>FAQ</span>
             </div>
       </div>
+      </>)}
     </div>
-  )
+  );
 }
 
 export default Product
