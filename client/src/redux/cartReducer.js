@@ -8,7 +8,8 @@ export const cartSlice = createSlice({
   reducers: {
     addToCart: (state,action) => {
      // verify if the item exists and if is like that just increases his quantity. 
-     const item = state.products.find(item => item.id === action.payload.id);
+
+     const item = state.products.find((item) => item.id === action.payload.id);
 
      if(item) {
         item.quantity += action.payload.quantity;
@@ -19,7 +20,14 @@ export const cartSlice = createSlice({
     },
     removeItem: (state,action) => {
       // add everything items except the selected item. 
-      state.products = state.products.find(item => item.id !== action.payload); 
+      let indice = state.products.findIndex(item => item.id === action.payload);
+      
+      if(indice >= 0){
+        state.products.splice(indice,1);
+      }else{
+        state.products = [];
+      }
+
     },
     resetCart: (state, action) => {
       state.products = [];
