@@ -19,6 +19,14 @@ const Cart = () => {
         return total.toFixed(2);
     };
 
+    const handlePayment =  async () => {
+        try {
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
   return (
     <div className='cart'>
         <h1>Products in your cart</h1>
@@ -41,7 +49,7 @@ const Cart = () => {
             <span>SUBTOTAL</span>
             <span>${totalPrice()}</span>
         </div>
-        <button>PROCEED TO CHEKOUT</button>
+        <button onClick={handlePayment}>PROCEED TO CHEKOUT</button>
         <span className='reset' onClick={()=> dispatch(resetCart())}>Reset Cart</span>
     </div>
   )
